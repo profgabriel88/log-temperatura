@@ -3,12 +3,14 @@ using Newtonsoft.Json;
 
 RespostaApi respostaApi = null;
 
+// altera para a porta que você estiver utilizando
 SerialPort serial = new SerialPort("COM12", 9600);
 serial.ReadTimeout = 2500;
 serial.WriteTimeout = 2500;
 serial.Open();
 
-string caminho = "C:\\Users\\gabriel\\Documents\\temp-log.txt";
+// altere para um caminho válido no seu computador
+string caminho = "C:\\Users\\gabriel\\Documents\\temp-log.csv";
 if (!File.Exists(caminho))
 {
     using (StreamWriter sw = File.CreateText(caminho))
@@ -38,6 +40,7 @@ while (true)
 
             if ((minutos >= 30 && minutos < 32) || (minutos >= 0 && minutos < 2))
             {
+                // caso não for usar a API comente a próxima linha
                 respostaApi = await GetHttpResponse();
                 using (StreamWriter sw = new StreamWriter(caminho, true))
                 {
